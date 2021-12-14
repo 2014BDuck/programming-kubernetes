@@ -15,7 +15,6 @@ import (
 )
 
 func main() {
-
 	config, err := rest.InClusterConfig()
 	if err != nil {
 		kubeconfig := flag.String("kubeconfig", "/Users/jiekunzhu/.kube/config", "kubeconfig file")
@@ -25,6 +24,9 @@ func main() {
 			fmt.Printf("err: %v", err)
 		}
 	}
+
+	config.AcceptContentTypes = "application/vnd.kubernetes.protobuf,application/json"
+	config.ContentType = "application/vnd.kubernetes.protobuf"
 
 	clientset, err := kubernetes.NewForConfig(config)
 	if err != nil {
